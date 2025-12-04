@@ -10,7 +10,7 @@ topology:
       kind: nokia_srsim
       image: localhost/nokia/srsim:25.7.R1
       type: sr-1
-      license: ./sfmix-srsim-25.txt
+      license: ./srsim-25.txt
       startup-config: ./configs/pe1_config.txt
       env:
         NOKIA_SROS_MDA_1: me12-100gb-qsfp28  
@@ -22,7 +22,7 @@ topology:
       kind: nokia_srsim
       image: localhost/nokia/srsim:25.7.R1
       type: sr-1
-      license: ./sfmix-srsim-25.txt
+      license: ./srsim-25.txt
       startup-config: ./configs/pe2_config.txt
 
       env:
@@ -36,7 +36,7 @@ topology:
       kind: nokia_srsim
       image: localhost/nokia/srsim:25.7.R1
       type: sr-1
-      license: ./sfmix-srsim-25.txt
+      license: ./srsim-25.txt
       startup-config: ./configs/gw_pe_config.txt
       
       env:

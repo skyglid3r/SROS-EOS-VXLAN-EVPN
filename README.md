@@ -23,7 +23,7 @@ The lab simulates a 3-node core:
 
 ## 🗺️ Lab Topology
 
-
+![Lab Topology](3Node-OSPF-EVPN.png)
 
 ### 🔹 Nodes
 

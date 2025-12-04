@@ -108,7 +108,7 @@ show router ospf neighbor
 show router route-table   # confirm loopbacks and /30 links
 
 🔍 4. BGP EVPN
-show router bgp family evpn summary
+
 show router bgp routes evpn mac        # EVPN Type-2 (L2)
 show router bgp routes evpn ip-prefix  # EVPN Type-5 (L3)
 

@@ -92,6 +92,37 @@ This lab lets you:
   - VPLS 30: pure L2 EVPN (Type-2), VLAN 30  
   - VPRN 100 + R-VPLS 200: pure L3 EVPN (Type-5), VLAN 40 per-site subnets  
 
+## Deploying the lab
+
+Login to the VM using the credentials on your sheet.
+
+Install Containerlab on your VM.
+
+```bash
+curl -sL https://containerlab.dev/setup | sudo -E bash -s "all"
+```
+
+**Logout and login for the sudo privileges to take effect.**
+
+Clone the Git repo to your VM:
+
+```
+git clone https://github.com/skyglid3r/sros-ospf-vxlan-evpn.git
+```
+
+Verify that the git repo files are now available on your VM.
+
+```
+ls -lrt sros-ospf-vxlan-evpn/
+```
+
+To deploy the lab, run the following:
+
+```
+cd sros-ospf-vxlan-evpn
+sudo clab deploy -t srsim-ospf-evpn-vxlan.yaml
+```
+
 ---
 ## 🖥️ Verification & Validation (SR OS)
 

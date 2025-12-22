@@ -12,7 +12,7 @@ This lab emulates a simplified Core/Edge fabric (IXP / Regional ISP style) using
   - Static VXLAN (head-end replication / flood-list style)
   - EVPN-signaled VXLAN (control-plane learned)
 
-Repository topology file (Containerlab): **`srsim-arista-vxlan.yaml`**. citeturn9view0
+Repository topology file (Containerlab): **`srsim-arista-vxlan.yaml`**. 
 
 ---
 
@@ -20,7 +20,7 @@ Repository topology file (Containerlab): **`srsim-arista-vxlan.yaml`**. cite�
 
 ![Lab Topology](SROS-EOS-OSPF-EVPN.png) citeturn9view0
 
-Topology diagram file in repo root: **`SROS-EOS-OSPF-EVPN.png`**. citeturn9view0
+Topology diagram file in repo root: **`SROS-EOS-OSPF-EVPN.png`**. 
 
 ---
 
@@ -35,7 +35,7 @@ Topology diagram file in repo root: **`SROS-EOS-OSPF-EVPN.png`**. citeturn
 | `eos-gw1` | Arista EOS (cEOS) | Gateway/Core | `3.3.3.3/32`, `33.33.33.33/32` |
 | `eos-gw2` | Arista EOS (cEOS) | Gateway/Core | `4.4.4.4/32`, `44.44.44.44/32` |
 
-Loopback assignments are as defined in the repository documentation. citeturn4view2
+Loopback assignments are as defined in the repository documentation. 
 
 ### Clients
 
@@ -90,7 +90,7 @@ All SR OS nodes run **OSPF instance 0, area 0.0.0.0** to provide reachability fo
 | 30 | L2 EVPN over VXLAN (Type-2) | `192.168.30.0/24` |
 | 40 | L3 EVPN over VXLAN (Type-5) via VPRN 100 | Site-specific (see below) |
 
-VLAN/subnet intent is per repository documentation. citeturn4view2
+VLAN/subnet intent is per repository documentation. 
 
 ### L3 EVPN (VLAN 40) Site Subnets
 

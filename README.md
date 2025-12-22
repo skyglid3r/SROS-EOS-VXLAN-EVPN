@@ -29,10 +29,13 @@ The lab simulates a 3-node core:
 
 - **PE1** – Loopback: `1.1.1.1/32`  
 - **PE2** – Loopback: `2.2.2.2/32`  
-- **GW-PE**  – Loopback: `3.3.3.3/32`
-- Nodes can be accessed using device names
+- **EOS-GW1**  – Loopback: `3.3.3.3/32` and '33.33.33.33/32'
+- **EOS-GW2**  – Loopback: `4.4.4.4/32` and '44.44.44.44/32'
+- SROS Nodes can be accessed using device names
+- UserID - admin ; password - NokiaSros1!
+- EOS Nodes can be accessed using device names
 - UserID - admin ; password - admin
-- To access 'client1' and 'client2': username - root ; password - password
+- To access 'client1' and 'client2' and 'client3': username - root ; password - password
 
 ### 🔹 Underlay Links (OSPF)
 

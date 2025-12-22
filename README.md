@@ -1,4 +1,4 @@
-# 3-Node OSPF EVPN VXLAN Lab
+# SROS-EOS OSPF EVPN VXLAN Lab
 
 📖 **Overview**  
 This lab emulates a simplified Core/Edge at IXP or RISP fabric using Nokia SROS routers with:

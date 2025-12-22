@@ -1,8 +1,8 @@
-# Copyright 2023 Nokia
+# Copyright 2025 Nokia
 # Licensed under the BSD 3-Clause License.
 # SPDX-License-Identifier: BSD-3-Clause
 # Author: amerf@outlook.com (github: skyglid3r)
-name: ospf-arista-evpn
+name: sros-eos-vxlan-evpn
 prefix: ""
 topology:
   nodes:
@@ -14,10 +14,7 @@ topology:
       startup-config: ./configs/pe1_config.txt
       env:
         NOKIA_SROS_MDA_1: me12-100gb-qsfp28  
-      #ports:
-      #  - 51001:22
-      #  - 51301:57400
-      #  - 51401:830
+
     pe2:
       kind: nokia_srsim
       image: localhost/nokia/srsim:25.7.R1
@@ -28,22 +25,15 @@ topology:
       env:
         NOKIA_SROS_MDA_1: me12-100gb-qsfp28
       
-      #ports:
-      #  - 52001:22
-      #  - 52301:57400
-      #  - 52401:830    
-
     eos-gw1:
       kind: ceos
       image: ceos:4.33.0F
       startup-config: ./configs/eos-gw1
-      #mgmt-ipv4: 172.30.30.7
 
     eos-gw2:
       kind: ceos
       image: ceos:4.33.0F
       startup-config: ./configs/eos-gw2
-      #mgmt-ipv4: 172.30.30.7
 
     client1:
       kind: linux

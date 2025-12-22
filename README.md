@@ -41,39 +41,41 @@ Loopback assignments are as defined in the repository documentation. citet
 
 - `client1`
 - `client2`
-- `client3` citeturn4view2
+- `client3` 
 
 ---
 
 ## Device Access Credentials
 
-> These are lab credentials (as documented in the repository). citeturn4view2
+> These are lab credentials (as documented in the repository). 
 
 ### Nokia SR OS (SR-SIM)
 
 - **Username:** `admin`  
-- **Password:** `NokiaSros1!` citeturn4view2
+- **Password:** `NokiaSros1!` 
 
 ### Arista EOS (cEOS)
 
 - **Username:** `admin`  
-- **Password:** `admin` citeturn4view2
+- **Password:** `admin` 
 
 ### Clients
 
 - **Username:** `root`  
-- **Password:** `password` citeturn4view2
+- **Password:** `password`
 
 ---
 
 ## Underlay Links (OSPF)
 
-- `pe1 ↔ gw` – `10.1.1.0/30`  
-- `pe2 ↔ gw` – `10.2.2.0/30` citeturn4view2
+- `pe1 ↔ gw1` – `10.1.1.0/30`  
+- `pe2 ↔ gw2` – `10.2.2.0/30`
+- `pe1 ↔ pe2` – `10.1.5.0/30`
+- `gw1 ↔ gw2` – `10.1.4.0/30` 
 
 All SR OS nodes run **OSPF instance 0, area 0.0.0.0** to provide reachability for:
 - Loopbacks
-- Point-to-point transport subnets citeturn4view2
+- Point-to-point transport subnets 
 
 ---
 
@@ -93,7 +95,7 @@ VLAN/subnet intent is per repository documentation. citeturn4view2
 ### L3 EVPN (VLAN 40) Site Subnets
 
 - **PE1 site subnet:** `192.168.100.0/24` (VPRN 100)  
-- **PE2 site subnet:** `192.168.200.0/24` (VPRN 100) citeturn4view2
+- **PE2 site subnet:** `192.168.200.0/24` (VPRN 100) 
 
 ---
 
@@ -107,11 +109,11 @@ VLAN/subnet intent is per repository documentation. citeturn4view2
 | 200 | R-VPLS | — | 200 | BGP EVPN (Type-5 IP Prefix) | L3 EVPN core (R-VPLS 200) |
 | 100 | VPRN / VRF | 40 | — | Bound to R‑VPLS 200 (Type‑5) | L3 EVPN VRF (VPRN 100) |
 
-Mapping summary is per repo documentation. citeturn4view2
+Mapping summary is per repo documentation. 
 
 Additional L3 EVPN specifics:
 - **PE1 advertises:** `192.168.100.0/24`
-- **PE2 advertises:** `192.168.200.0/24` citeturn4view2
+- **PE2 advertises:** `192.168.200.0/24` 
 
 ---
 
@@ -125,7 +127,7 @@ This lab allows you to:
 - ✅ Verify **L3 EVPN (Type‑5)** using R‑VPLS 200 + VPRN 100
 - ✅ Confirm end-to-end host connectivity:
   - Same VLAN via L2 EVPN
-  - Different subnets via L3 EVPN citeturn9view1
+  - Different subnets via L3 EVPN 
 
 ---
 
@@ -137,7 +139,7 @@ This lab allows you to:
   - EVPN-signaled VXLAN (VPLS 30, R‑VPLS 200 + VPRN 100)
 - **L2 vs L3 separation:**
   - VPLS 30: pure L2 EVPN (Type‑2), VLAN 30
-  - VPRN 100 + R‑VPLS 200: pure L3 EVPN (Type‑5), VLAN 40 per-site subnets citeturn9view1
+  - VPRN 100 + R‑VPLS 200: pure L3 EVPN (Type‑5), VLAN 40 per-site subnets 
 
 ---
 
@@ -149,11 +151,11 @@ This lab allows you to:
 curl -sL https://containerlab.dev/setup | sudo -E bash -s "all"
 ```
 
-Logout/login if needed for privilege changes to take effect. citeturn9view2
+Logout/login if needed for privilege changes to take effect. 
 
 ### 2) Ensure images are present
 
-The repo includes notes for SR-SIM image usage (see `srsim-25.txt`). citeturn9view0
+The repo includes notes for SR-SIM image usage (see `srsim-25.txt`). 
 
 ### 3) Clone this repository
 
@@ -168,7 +170,7 @@ cd SROS-EOS-VXLAN-EVPN
 sudo clab deploy -t srsim-arista-vxlan.yaml
 ```
 
-The topology file is in the repository root. citeturn9view0
+The topology file is in the repository root. 
 
 ---
 
@@ -183,14 +185,14 @@ show port
 show router ospf neighbor
 show router route-table
 ```
-(Confirm loopbacks and /30 transport reachability.) citeturn9view4
+(Confirm loopbacks and /30 transport reachability.) 
 
 #### BGP EVPN (Overlay)
 ```bash
 show router bgp routes evpn mac
 show router bgp routes evpn ip-prefix
 ```
-(Type‑2 MAC/IP and Type‑5 IP Prefix routes.) citeturn9view4
+(Type‑2 MAC/IP and Type‑5 IP Prefix routes.) 
 
 #### Services (L2/L3 quick inspection)
 ```bash
@@ -198,7 +200,7 @@ info flat configure service vpls 30
 info flat configure service vpls "200"
 info flat configure service vprn "100"
 ```
-citeturn9view5turn9view6
+
 
 #### End-to-end connectivity examples
 ```bash
@@ -210,6 +212,7 @@ ping 192.168.200.1 router-instance "100"
 ping 192.168.100.1 router-instance "100"
 
 # From client1
+ping 192.168.20.3     # Static Flood example
 ping 192.168.200.10   # Type-5 example
 ping 192.168.30.2     # Type-2 example
 
@@ -217,7 +220,6 @@ ping 192.168.30.2     # Type-2 example
 ping 192.168.100.10   # Type-5 example
 ping 192.168.30.1     # Type-2 example
 ```
-citeturn9view6
 
 ### EOS (Arista)
 
@@ -235,16 +237,4 @@ show vxlan address-table
 
 ---
 
-## Repository Layout (Quick Guide)
 
-- `srsim-arista-vxlan.yaml` – Containerlab topology (deploy target) citeturn9view0  
-- `SROS-EOS-OSPF-EVPN.png` – Topology diagram citeturn9view0  
-- `configs/` – Node configuration artifacts (SR OS / EOS) citeturn9view0  
-- `srsim-25.txt` – SR-SIM image notes citeturn9view0  
-
----
-
-## Notes / Tips
-
-- In Containerlab environments, node hostnames are typically resolvable from the lab host. The repository notes indicate accessing nodes by **device names** (e.g., `ssh admin@pe1`). citeturn4view2
-- If you update configs, re-deploy or use your preferred workflow to persist configuration state.

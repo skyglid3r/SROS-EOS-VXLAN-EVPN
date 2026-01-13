@@ -3,11 +3,9 @@
 # Built on Wed Jul 16 21:13:09 UTC 2025 by builder in /builds/257B/R1/panos/main/srux
 # Configuration format version 25.7 revision 0
 
-# Generated 2025-12-22T18:08:38.4Z by admin from 3fff:172:20:20::1
-# Commit ID 15
-#   Committed 2025-12-22T17:10:16.1Z by admin (MD-CLI) from 3fff:172:20:20::1
-# Commit ID 14
-#   Committed 2025-12-22T17:05:11.3Z by admin (MD-CLI) from 3fff:172:20:20::1
+# Generated 2026-01-13T20:45:46.6Z by admin from 3fff:172:20:20::1
+# Commit ID 9
+#   Committed 2026-01-13T20:45:24.1Z by admin (MD-CLI) from 3fff:172:20:20::1
 
 configure {
     card 1 {
@@ -18,6 +16,20 @@ configure {
         mda 2 {
         }
         fp 1 {
+        }
+    }
+    filter {
+        ip-filter "my-filter" {
+            filter-id 100
+            entry 10 {
+                log 101
+                match {
+                    protocol ospf-igp
+                }
+                action {
+                    accept
+                }
+            }
         }
     }
     log {
@@ -57,6 +69,19 @@ configure {
         }
     }
     policy-options {
+        as-path "my-as-path" {
+            expression "64500"
+        }
+        community "my-comm" {
+            member "65400:100" { }
+            member "65510:20" { }
+        }
+        prefix-list "loopbacks" {
+            prefix 172.0.0.0/16 type range {
+                start-length 32
+                end-length 32
+            }
+        }
         policy-statement "export-isis" {
             entry 10 {
                 from {
@@ -67,6 +92,37 @@ configure {
             }
             default-action {
                 action-type accept
+            }
+        }
+        policy-statement "export-loopbacks" {
+            entry-type named
+            named-entry "local-only" {
+                from {
+                    prefix-list ["loopbacks"]
+                    protocol {
+                        name [direct]
+                    }
+                }
+                action {
+                    action-type accept
+                    as-path {
+                        add "my-as-path"
+                    }
+                    community {
+                        add ["my-comm"]
+                    }
+                }
+            }
+            named-entry "match-community" {
+                from {
+                    community {
+                        name "my-comm"
+                    }
+                }
+                action {
+                    action-type accept
+                    local-preference 130
+                }
             }
         }
     }
@@ -150,6 +206,15 @@ configure {
                 }
             }
         }
+        interface "test-loopback" {
+            loopback
+            ipv4 {
+                primary {
+                    address 172.10.1.1
+                    prefix-length 32
+                }
+            }
+        }
         interface "to-gw-pe" {
             admin-state enable
             ip-mtu 1500
@@ -187,6 +252,9 @@ configure {
             neighbor "10.1.5.2" {
                 group "EVPN"
                 local-address 10.1.5.1
+                export {
+                    policy ["export-loopbacks"]
+                }
             }
         }
         ospf 0 {
@@ -220,6 +288,12 @@ configure {
                 }
             }
             sap 1/1/c4/1:10 {
+                stp {
+                    admin-state disable
+                }
+                fdb {
+                    maximum-mac-addresses 2
+                }
             }
         }
         vpls "20" {
@@ -623,9 +697,10 @@ persistent-indices {
     vrtr-if-id {
         router-name "100" interface-name "cust-l3" vrtr-id 3 if-index 3
         router-name "100" interface-name "to-evpn" vrtr-id 3 if-index 4
+        router-name "Base" interface-name "test-loopback" vrtr-id 1 if-index 6
         router-name "Base" interface-name "to-gw-pe" vrtr-id 1 if-index 2
         router-name "Base" interface-name "to-pe2" vrtr-id 1 if-index 5
     }
 }
 
-# Finished 2025-12-22T18:08:38.4Z
+# Finished 2026-01-13T20:45:46.6Z
